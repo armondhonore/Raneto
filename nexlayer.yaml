@@ -1,0 +1,12 @@
+application:
+  name: raneto
+  pods:
+  - name: app
+    image: nickg/raneto:latest
+    path: /
+    servicePorts:
+    - 3000
+    volumes:
+    - name: raneto-content
+      mountPath: /opt/raneto/example/content
+      size: 2Gi
