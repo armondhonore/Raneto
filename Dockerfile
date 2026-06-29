@@ -24,15 +24,12 @@ WORKDIR /var/www/html
 # Copy application source
 COPY . .
 
-# Raneto requires a config.php file to start. 
-# If it's missing, it might trigger a crash or a redirect that causes 503s if not handled.
-# We ensure the directory is writable for the installer/app.
-RUN chown -R www-data:www-data /var/www/html
-
-# Create a dummy config.php if it doesn't exist to prevent startup crashes
-# and ensure the app is in a state where it can be accessed.
-RUN if [ ! -f config.php ]; then cp config.sample.php config.php || touch config.php; fi
-RUN chown www-data:www-data config.php
+# Fix permissions and initialize config in a single RUN block to ensure reliability
+RUN chown -R www-data:www-data /var/www/html && \
+    if [ ! -f config.php ]; then \
+        cp config.sample.php config.php || touch config.php; \
+    fi && \
+    chmod 666 config.php || true
 
 EXPOSE 80
 
