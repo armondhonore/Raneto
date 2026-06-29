@@ -1,8 +1,17 @@
 application:
   name: raneto
   pods:
-  - name: app
-    image: nickg/raneto:latest
-    path: /
-    servicePorts:
-    - 3000
+    - name: app
+      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f15014-fix2"
+      path: /
+      servicePorts:
+        - 3000
+      vars:
+        PORT: "3000"
+        NODE_ENV: production
+        MONGO_URL: "mongodb://mongo.pod:27017/raneto"
+    - name: mongo
+      image: mirror.gcr.io/library/mongo:7
+      servicePorts:
+        - 27017
+      vars: {}
