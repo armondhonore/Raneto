@@ -1,1 +1,0 @@
-FROM nickg/raneto:latest
