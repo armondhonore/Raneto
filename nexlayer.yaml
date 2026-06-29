@@ -1,21 +1,12 @@
 application:
   name: raneto
   pods:
-    - name: app
-      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f152d0-fix2"
-      path: /
-      servicePorts:
-        - 3000
-      vars:
-        ROOT_URL: "<% URL %>"
-        MONGO_URL: "mongodb://mongo.pod:27017/raneto"
-        PORT: "3000"
-    - name: mongo
-      image: mirror.gcr.io/library/mongo:7
-      servicePorts:
-        - 27017
-      vars: {}
-      volumes:
-        - name: raneto-mongo-data
-          size: 10Gi
-          mountPath: /data/db
+  - name: app
+    image: "# filled by pipeline"
+    path: /
+    servicePorts:
+    - 3000
+    vars:
+      HOST: "0.0.0.0"
+      PORT: "3000"
+      NODE_ENV: production
