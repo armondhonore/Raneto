@@ -6,7 +6,3 @@ application:
     path: /
     servicePorts:
     - 3000
-    volumes:
-    - name: raneto-content
-      mountPath: /opt/raneto/example/content
-      size: 2Gi
