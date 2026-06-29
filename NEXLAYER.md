@@ -39,7 +39,7 @@ application:
   name: raneto
   pods:
   - name: app
-    image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:19f159626ba"
+    image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:19f15a10081"
     path: /
     servicePorts:
     - 3000
@@ -47,6 +47,7 @@ application:
       HOST: "0.0.0.0"
       PORT: "3000"
       NODE_ENV: production
+      SESSION_SECRET: "raneto_nexlayer_session_secret_key_2026"
 ```
 
 **Common edits:**
