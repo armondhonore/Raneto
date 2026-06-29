@@ -39,7 +39,7 @@ application:
   name: raneto
   pods:
   - name: app
-    image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:19f15a10081"
+    image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:19f15abb25c"
     path: /
     servicePorts:
     - 3000
