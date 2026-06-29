@@ -77,7 +77,7 @@ application:
   name: raneto
   pods:
     - name: app
-      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f15080-fix2"
+      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f15080-fix3"
       path: /
       servicePorts:
         - 3000
@@ -115,7 +115,7 @@ application:
 
 ## Nexlayer Configuration
 <!-- nexlayer:section agent-managed=nexlayer_config -->
-**Last deployed:** 2026-06-29T20:26:54Z  
+**Last deployed:** 2026-06-29T20:36:27Z  
 **Live URL:** https://relaxed-weasel-raneto.cloud.nexlayer.ai  
 **Runtime:**  · **Port:** auto-detected  
 **Deploy branch:** nexlayer  
@@ -125,7 +125,7 @@ application:
   name: raneto
   pods:
     - name: app
-      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f15080-fix2"
+      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f15080-fix3"
       path: /
       servicePorts:
         - 3000
@@ -145,6 +145,7 @@ application:
 | Date | Status | Notes |
 |------|--------|-------|
 | 2026-06-29T20:18:15Z | analyzed | initial repo analysis |
-| 2026-06-29T20:26:54Z | success | deployed https://relaxed-weasel-raneto.cloud.nexlayer.ai |
+| 2026-06-29T20:36:27Z | success | deployed https://relaxed-weasel-raneto.cloud.nexlayer.ai |
 <!-- nexlayer:end -->
+
 

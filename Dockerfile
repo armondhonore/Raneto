@@ -1,7 +1,6 @@
 FROM mirror.gcr.io/library/php:8.2-apache
 
 # Install system dependencies for Raneto
-# libmysqlclient-dev is replaced by libmariadb-dev-compat and libmariadb-dev in newer Debian versions
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -25,8 +24,15 @@ WORKDIR /var/www/html
 # Copy application source
 COPY . .
 
-# Fix permissions for Apache
+# Raneto requires a config.php file to start. 
+# If it's missing, it might trigger a crash or a redirect that causes 503s if not handled.
+# We ensure the directory is writable for the installer/app.
 RUN chown -R www-data:www-data /var/www/html
+
+# Create a dummy config.php if it doesn't exist to prevent startup crashes
+# and ensure the app is in a state where it can be accessed.
+RUN if [ ! -f config.php ]; then cp config.sample.php config.php || touch config.php; fi
+RUN chown www-data:www-data config.php
 
 EXPOSE 80
 
