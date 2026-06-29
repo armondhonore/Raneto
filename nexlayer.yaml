@@ -1,0 +1,8 @@
+application:
+  name: raneto
+  pods:
+  - name: app
+    image: nickg/raneto:latest
+    path: /
+    servicePorts:
+    - 3000
