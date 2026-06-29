@@ -1,27 +1,33 @@
-FROM mirror.gcr.io/library/node:20-alpine
+FROM mirror.gcr.io/library/php:8.2-apache
 
-# Install build dependencies for native modules (Raneto uses SQLite/native deps)
-RUN apk add --no-cache python3 make g++
+# Install system dependencies for Raneto
+# libmysqlclient-dev is replaced by libmariadb-dev-compat and libmariadb-dev in newer Debian versions
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libmariadb-dev-compat \
+    libmariadb-dev \
+    unzip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql
 
-# The root-listing only shows Dockerfile and nexlayer.yaml. 
-# This suggests the build context is not the repository root or the files are missing.
-# Since this is a known open-source project (Raneto), we must ensure we are 
-# working with the actual source code. If the files aren't in the context,
-# we can clone the repo directly into the image to guarantee we have package.json.
+# Enable Apache rewrite module
+RUN a2enmod rewrite
 
-RUN apk add --no-cache git
+# Set working directory to Apache's document root
+WORKDIR /var/www/html
 
-# Clone the repository into the current directory
-RUN git clone https://github.com/armondhonore/Raneto.git . 
+# Copy application source
+COPY . .
 
-# Install production dependencies
-RUN npm install --omit=dev
+# Fix permissions for Apache
+RUN chown -R www-data:www-data /var/www/html
 
-EXPOSE 3000
+EXPOSE 80
 
-ENV PORT=3000
-ENV HOSTNAME=0.0.0.0
-
-CMD ["npm", "start"]
+CMD ["apache2-foreground"]

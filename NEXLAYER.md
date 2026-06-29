@@ -15,23 +15,22 @@
 
 ## Project Summary
 <!-- nexlayer:section agent-managed=project_summary -->
-Raneto is a lightweight, open-source wiki engine designed for simplicity and ease of use, providing a structured way to organize and display documentation.
+Raneto is a lightweight, open-source wiki engine designed for simplicity and ease of deployment, allowing users to create and manage structured documentation.
 <!-- nexlayer:end -->
 
 ## Technology Stack
 <!-- nexlayer:section agent-managed=tech_stack -->
 | Name | Kind | Version | Detected From |
 |------|------|---------|---------------|
-| Node.js | language | latest | Dockerfile |
-| Express | framework | latest | package.json |
-| SQLite | database | latest | package.json |
+| PHP | language | 8.x | Dockerfile |
+| Apache | infra | 2.4 | Dockerfile |
+| MySQL | database | 8.0 | Dockerfile |
 <!-- nexlayer:end -->
 
 ## Repository Structure
 <!-- nexlayer:section agent-managed=structure_map -->
-- public/ — Static assets and client-side files
-- views/ — Templates for rendering wiki pages
-- app.js — Main application entry point and routing logic
+- root/ — Application source code and configuration
+- Dockerfile — Container definition for the PHP/Apache environment
 <!-- nexlayer:end -->
 
 ## External Services Required
@@ -69,8 +68,7 @@ NODE_ENV=development
 | Pod | Variable | Value | Kind |
 |-----|----------|-------|------|
 | `app` | `PORT` | `"3000"` | plain |
-| `app` | `NODE_ENV` | `production` | plain |
-| `app` | `MONGO_URL` | `"mongodb://mongo.pod:27017/raneto"` | plain |
+| `app` | `MONGODB_URL` | `"mongodb://mongo.pod:27017/raneto"` | plain |
 
 ### nexlayer.yaml
 
@@ -79,21 +77,19 @@ application:
   name: raneto
   pods:
     - name: app
-      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f15014-fix2"
+      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f15080-fix2"
       path: /
       servicePorts:
         - 3000
       vars:
         PORT: "3000"
-        NODE_ENV: production
-        MONGO_URL: "mongodb://mongo.pod:27017/raneto"
+        MONGODB_URL: "mongodb://mongo.pod:27017/raneto"
     - name: mongo
       image: mirror.gcr.io/library/mongo:7
       servicePorts:
         - 27017
       vars: {}
 ```
-
 <!-- nexlayer:end -->
 
 ## Nexlayer Deployment Plan
@@ -119,7 +115,7 @@ application:
 
 ## Nexlayer Configuration
 <!-- nexlayer:section agent-managed=nexlayer_config -->
-**Last deployed:** 2026-06-29T20:18:49Z  
+**Last deployed:** 2026-06-29T20:26:54Z  
 **Live URL:** https://relaxed-weasel-raneto.cloud.nexlayer.ai  
 **Runtime:**  · **Port:** auto-detected  
 **Deploy branch:** nexlayer  
@@ -129,14 +125,13 @@ application:
   name: raneto
   pods:
     - name: app
-      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f15014-fix2"
+      image: "registry.nexlayer.io/user_01kece1xyh817dwff7wnarhkxd/raneto:9f15080-fix2"
       path: /
       servicePorts:
         - 3000
       vars:
         PORT: "3000"
-        NODE_ENV: production
-        MONGO_URL: "mongodb://mongo.pod:27017/raneto"
+        MONGODB_URL: "mongodb://mongo.pod:27017/raneto"
     - name: mongo
       image: mirror.gcr.io/library/mongo:7
       servicePorts:
@@ -149,6 +144,7 @@ application:
 <!-- nexlayer:section agent-managed=build_history -->
 | Date | Status | Notes |
 |------|--------|-------|
-| 2026-06-29T20:10:50Z | analyzed | initial repo analysis |
-| 2026-06-29T20:18:49Z | success | deployed https://relaxed-weasel-raneto.cloud.nexlayer.ai |
+| 2026-06-29T20:18:15Z | analyzed | initial repo analysis |
+| 2026-06-29T20:26:54Z | success | deployed https://relaxed-weasel-raneto.cloud.nexlayer.ai |
 <!-- nexlayer:end -->
+
